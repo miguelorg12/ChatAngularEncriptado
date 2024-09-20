@@ -14,5 +14,6 @@ export class AppComponent {
 
   succesToast(){
     this.toastr.error('Hello world!', 'Toastr fun!');
+    this.toastr.success('Hello world!', 'Toastr fun!');
   }
 }

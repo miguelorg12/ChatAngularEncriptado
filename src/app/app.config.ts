@@ -1,14 +1,22 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideToastr } from 'ngx-toastr';
-
 import { routes } from './app.routes';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
     provideToastr({  timeOut: 1000, preventDuplicates: true, closeButton: true }),
-    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync()]
+    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), 
+    provideAnimationsAsync(),
+    provideHttpClient(),
+    importProvidersFrom([BrowserAnimationsModule])
+    
+    
+  ]
 };
