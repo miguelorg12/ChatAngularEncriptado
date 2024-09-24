@@ -78,7 +78,7 @@
     <div class="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
       <div class="max-w-md w-full p-6">
         <h1 class="text-3xl font-semibold mb-6 text-black text-center">Iniciar Sesion</h1>
-        
+          <form class="space-y-4">
           <!-- Your form elements go here -->
           <div>
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
@@ -91,8 +91,9 @@
           <div>
             <button type="submit" (click)="login()" class="w-full mt-4 bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Entrar</button>
           </div>
+        </form>
         <div class="mt-4 text-sm text-gray-600 text-center">
-          <p>¿No estas registrado? <a href="/register" class="text-black hover:underline">Registrate aquí</a>
+          <p>¿No estas registrado? <a [routerLink]="['/register']" class="text-black hover:underline">Registrate aquí</a>
           </p>
         </div>
       </div>

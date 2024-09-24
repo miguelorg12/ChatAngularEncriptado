@@ -1,9 +1,29 @@
 import { Injectable } from '@angular/core';
-
+import { CookieService } from 'ngx-cookie-service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../environments/enviroment';
+import { User, UserLogin, UserRegister } from '../models/user.model';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private token: string;
+  private headers: HttpHeaders = new HttpHeaders();
+  constructor(private cookies: CookieService, private http: HttpClient) {
+      this.token = this.cookies.get('token');
+      this.headers = this.headers.set('Authorization', `Bearer ${this.token}`);
+      
+  }
+  login(login: UserLogin): Observable<User> {
+      return this.http.post<User>(`${environment.apiurl}/login`, login, {headers: this.headers});
+  }
 
-  constructor() { }
+  register(register: UserRegister): Observable<User> {
+      return this.http.post<User>(`${environment.apiurl}/register`, register, {headers: this.headers});
+  }
+
+  
+
+  
 }

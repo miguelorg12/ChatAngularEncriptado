@@ -5,16 +5,16 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ToastService {
   constructor(private toast: ToastrService) { }
-  showSuccess(message:string, title:string){
-    this.toast.success(message, title);
+  showSuccess(message:string, title: string, timeOut:number = 2000){
+    this.toast.success(message, title, {timeOut});
   }
-  showError(message:string, title:string){
-    this.toast.error(message, title);
+  showError(message:string, title:string, timeOut:number = 2000){
+    this.toast.error(message, title, {timeOut});
   }
-  showInfo(message:string, title:string){
-    this.toast.info(message, title);
+  showInfo(message:string, title:string, timeOut:number = 2000){
+    this.toast.info(message, title, {timeOut});
   }
-  showWarning(message:string, title:string){
-    this.toast.warning(message, title);
+  showWarning(message:string, title:string, timeOut:number = 2000){
+    this.toast.warning(message, title, {timeOut});
   }
 }

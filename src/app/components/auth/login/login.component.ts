@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { Router, RouterLink  } from '@angular/router';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastService } from '../../../services/toast.service';
 import { LoadingService } from '../../../services/loading.service';
+
+
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NgxSpinnerModule],
+  imports: [NgxSpinnerModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
