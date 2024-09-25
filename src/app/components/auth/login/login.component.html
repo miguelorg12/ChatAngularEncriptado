@@ -1,5 +1,7 @@
 <!-- component -->
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-scale-multiple" [fullScreen] = "true"><p class="text-white" > Loading... </p></ngx-spinner>
+<ngx-spinner>
+  <p class="text-white">Loading...</p>
+</ngx-spinner>
 <div class="flex h-screen">
     <!-- Left Pane -->
     <div class="hidden lg:flex items-center justify-center flex-1 bg-white text-black">
@@ -78,15 +80,25 @@
     <div class="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
       <div class="max-w-md w-full p-6">
         <h1 class="text-3xl font-semibold mb-6 text-black text-center">Iniciar Sesion</h1>
-          <form class="space-y-4">
+          <form class="space-y-4" [formGroup]="loginForm">
           <!-- Your form elements go here -->
           <div>
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-            <input type="text" id="email" name="email" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+            <input type="text" formControlName="email" autocomplete="email" name="email" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+            <div *ngIf="loginForm.controls['email'].errors && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
+              <p class="text-red-500 text-sm mt-1" *ngIf="loginForm.controls['email'].errors['required']">The email is required</p>
+              <p class="text-red-500 text-sm mt-1" *ngIf="loginForm.controls['email'].errors['email']">The email format is incorrect.</p>
+              <p class="text-red-500 text-sm mt-1" *ngIf="loginForm.controls['email'].errors['maxlength']">The long max is 255 characters</p>
+            </div>
+
           </div>
           <div>
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-            <input type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+            <input type="password" formControlName="password" name="password" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+            <div *ngIf="loginForm.controls['password'].errors && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+              <p class="text-red-500 text-sm mt-1" *ngIf="loginForm.controls['password'].errors['required']">The password is required</p>
+            </div>
+            <p class="text-red-500 text-sm mt-1" *ngIf="backendErrors">{{backendErrors}}</p>  
           </div>
           <div>
             <button type="submit" (click)="login()" class="w-full mt-4 bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Entrar</button>

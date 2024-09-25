@@ -16,11 +16,11 @@ export class AuthService {
       
   }
   login(login: UserLogin): Observable<User> {
-      return this.http.post<User>(`${environment.apiurl}/login`, login, {headers: this.headers});
+      return this.http.post<User>(`${environment.apiurl}/auth/login`, login, {headers: this.headers, });
   }
 
   register(register: UserRegister): Observable<User> {
-      return this.http.post<User>(`${environment.apiurl}/register`, register, {headers: this.headers});
+      return this.http.post<User>(`${environment.apiurl}/auth/register`, register, {headers: this.headers});
   }
 
   

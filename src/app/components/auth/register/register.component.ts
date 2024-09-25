@@ -10,12 +10,12 @@ import { LoadingService } from '../../../services/loading.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, NgxSpinnerModule, CommonModule, ReactiveFormsModule],
+  imports: [RouterLink, NgxSpinnerModule, CommonModule, ReactiveFormsModule, ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  backendErrors: any = {};
+  backendErrors: any;
   constructor(private router: Router, private toast: ToastService, private auth:AuthService, private loading: LoadingService) {}
   registerForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.minLength(8)]),
@@ -29,15 +29,18 @@ export class RegisterComponent {
     if (this.registerForm.valid){
       this.auth.register(this.registerForm.value).subscribe({ 
       next: (response: any) => {
-        console.log(response);
+        setTimeout(() => {
         this.loading.loadingHide();
         this.router.navigate(['/login']);
-        this.toast.showSuccess('Registro Exitoso', 'Por favor inicia sesión', 3000);
+        this.toast.showSuccess('Por favor inicia sesión','Registro Exitoso', 4000);
+        }, 3000);
+        
+        
       }, error: (error: HttpErrorResponse) => {
         this.loading.loadingHide();
         if(error.status === 400){
-          console.log(error.error);
-          this.backendErrors = error.error.message;
+          this.backendErrors = error.error.message[0];
+          
         }
         else{
           this.toast.showError('Error en el servidor', 'Error', 3000);
