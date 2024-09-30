@@ -19,3 +19,8 @@ export interface UserRegister {
     passwordConfirmation: string   
 
 }
+
+export interface UserVerify{
+    userId: number,
+    code: string
+}

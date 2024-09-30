@@ -7,7 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '../../../services/toast.service';
 import { AuthService } from '../../../services/auth.service';
 import { LoadingService } from '../../../services/loading.service';
-
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,8 @@ export class LoginComponent {
   
   constructor(private router: Router, private toast: ToastService,
     private loading: LoadingService,
-    private auth: AuthService
+    private auth: AuthService,
+    private cookie: CookieService
     
   ) {}
   backendErrors: any;
@@ -33,11 +34,12 @@ export class LoginComponent {
     if (this.loginForm.valid){
       this.auth.login(this.loginForm.value).subscribe({
         next: (response: any) => {
+          this.cookie.set('userId', response.id, 86400000);
           setTimeout(() => {
             this.loading.loadingHide();
-            this.router.navigate(['/chat']);
-            this.toast.showSuccess('Bienvenido', 'Loggeo Exitoso', 4000);
-          }, 5000);
+            this.router.navigate(['/verify-code']);
+            this.toast.showSuccess('Loggeo exitoso', 'Revise su correo', 4000);
+          }, 1000);
         }, error: (error: HttpErrorResponse) => {
           this.loading.loadingHide();
           console.log(error);

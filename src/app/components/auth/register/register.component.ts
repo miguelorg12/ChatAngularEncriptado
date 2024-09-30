@@ -33,14 +33,13 @@ export class RegisterComponent {
         this.loading.loadingHide();
         this.router.navigate(['/login']);
         this.toast.showSuccess('Por favor inicia sesión','Registro Exitoso', 4000);
-        }, 3000);
+        }, 1000);
         
         
       }, error: (error: HttpErrorResponse) => {
         this.loading.loadingHide();
         if(error.status === 400){
-          this.backendErrors = error.error.message[0];
-          
+          this.backendErrors = error.error.message[0]; 
         }
         else{
           this.toast.showError('Error en el servidor', 'Error', 3000);
