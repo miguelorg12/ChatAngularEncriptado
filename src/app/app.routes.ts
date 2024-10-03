@@ -5,12 +5,12 @@ import { ChatComponent } from './components/sections/chat/chat.component';
 import { ChatContactsComponent } from './components/sections/chat-contacts/chat-contacts.component';
 import { NotFoundComponent } from './components/errors/not-found/not-found.component';
 import { VerifyCodeComponent } from './components/auth/verify-code/verify-code.component';
+import { authGuard } from './guards/auth.guard';
 export const routes: Routes = [
     { path: '', component: LoginComponent},
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'verify-code', component: VerifyCodeComponent},
-    { path: 'chat', component: ChatComponent},
-
+    { path: 'chat', component: ChatComponent, canActivate: [authGuard]},
     { path: '**', component: NotFoundComponent}
 ];
