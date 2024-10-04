@@ -15,6 +15,9 @@ export class AuthService {
       this.headers = this.headers.set('Authorization', `Bearer ${this.token}`);
       
   }
+  getUsers(): Observable<User[]> {
+      return this.http.get<User[]>(`${environment.apiurl}/users`, {headers: this.headers});
+  }
   login(login: UserLogin): Observable<User> {
       return this.http.post<User>(`${environment.apiurl}/auth/login`, login, {headers: this.headers, });
   }
