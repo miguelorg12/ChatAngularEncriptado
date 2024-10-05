@@ -22,12 +22,16 @@ export class ChatService {
     return this.http.get<Message[]>(`${environment.apiurl}/messages`, { headers: this.headers });
   }
 
-  createMessage(message: CreateMessage): Observable<Message> {
-    return this.http.post<Message>(`${environment.apiurl}/messages`, message, { headers: this.headers });
+  createMessage(message: CreateMessage): Observable<CreateMessage> {
+    return this.http.post<CreateMessage>(`${environment.apiurl}/messages`, message, { headers: this.headers });
   }
 
   getRooms(): Observable<Room[]> {
     return this.http.get<Room[]>(`${environment.apiurl}/rooms`, { headers: this.headers });
+  }
+
+  getRoom(id: number): Observable<Room> {
+    return this.http.get<Room>(`${environment.apiurl}/rooms/${id}`, { headers: this.headers });
   }
 
   createRoom(room: Room): Observable<Room> {

@@ -14,6 +14,7 @@
             <button
               class="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2"
               *ngFor="let user of users"
+              (click)="selectChatRoom( user.id)"
             >
               <div
                 class="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full"
@@ -29,78 +30,35 @@
         <div
           class="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4"
         >
-        <div class="flex flex-col h-full justify-center items-center">
+        <div class="flex flex-col h-full justify-center items-center" *ngIf="!chat">
             <p class="text-gray-500 text-lg">Select a chat</p>
             <p class="text-gray-400">For chating select a chat from the left sidebar</p>
         </div>
-          <!-- <div class="flex flex-col h-full overflow-x-auto mb-4">
-            <div class="flex flex-col h-full">
-              <div class="grid grid-cols-12 gap-y-2">
-                <div class="col-start-1 col-end-8 p-3 rounded-lg">
-                  <div class="flex flex-row items-center">
-                    <div
-                      class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
-                    >
-                      A
-                    </div>
-                    <div
-                      class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl"
-                    >
-                      <div>Hey How are you today?</div>
-                    </div>
-                  </div>
+        <div class="flex flex-col h-full justify-center items-center" *ngIf="noMsg">
+          <p class="text-gray-500 text-lg">No hay mensajes por mostrar</p>
+          <p class="text-gray-400">Envia un mensaje para iniciar la conversación</p>
+      </div>
+      <div class="flex flex-col h-full overflow-x-auto mb-4">
+        <div class="flex flex-col h-full">
+          <div class="grid grid-cols-12 gap-y-2">
+            <!-- Mensaje de otro usuario -->
+            <div class="col-start-1 col-end-8 p-3 rounded-lg" *ngFor="let message of messages">
+              <div class="flex flex-row items-center">
+                <div class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                  <div>{{ message }}</div>
                 </div>
-                <div class="col-start-1 col-end-8 p-3 rounded-lg">
-                  <div class="flex flex-row items-center">
-                    <div
-                      class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
-                    >
-                      A
-                    </div>
-                    <div
-                      class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl"
-                    >
-                      <div>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Vel ipsa commodi illum saepe numquam maxime
-                        asperiores voluptate sit, minima perspiciatis.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                  <div class="flex items-center justify-start flex-row-reverse">
-                    <div
-                      class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
-                    >
-                      A
-                    </div>
-                    <div
-                      class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl"
-                    >
-                      <div>I'm ok what about you?</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                  <div class="flex items-center justify-start flex-row-reverse">
-                    <div
-                      class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
-                    >
-                      A
-                    </div>
-                    <div
-                      class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl"
-                    >
-                      <div>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing. ?
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+            <div class="col-start-6 col-end-13 p-3 rounded-lg" *ngFor="let message of messages">
+              <div class="flex items-center justify-start flex-row-reverse">
+                <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
+                  <div>{{ message }}</div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
           <div
             class="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4"
           >
@@ -108,6 +66,7 @@
               <div class="relative w-full">
                 <input
                   type="text"
+                  [(ngModel)]="message"
                   class="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
                 />
                
@@ -116,6 +75,7 @@
             <div class="ml-4">
               <button
                 class="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
+                (click)="createMessage()"
               >
                 <span>Send</span>
                 <span class="ml-2">
@@ -136,7 +96,7 @@
                 </span>
               </button>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
