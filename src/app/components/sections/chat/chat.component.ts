@@ -36,6 +36,7 @@ export class ChatComponent {
       
       if ((data.user1.id === this.userid && data.user2.id === this.currentChat) || 
           (data.user1.id === this.currentChat && data.user2.id === this.userid)) {
+        //data.message = this.chatService.decryptMessage(data.message);  en caso de que se pida que desencrpte en cliente
         this.messages.push(data);
       }
     });
@@ -90,6 +91,7 @@ export class ChatComponent {
       next: (response: any) => {
         this.messages = response.map((message: Message) => ({
           ...message,
+          //message: this.chatService.decryptMessage(message.message) en caso de que se pida que desencrpte en cliente
         }));
         console.log(this.messages);
       },
