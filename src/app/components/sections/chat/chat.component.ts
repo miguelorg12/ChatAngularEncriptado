@@ -33,7 +33,11 @@ export class ChatComponent {
   ) {
     const socketSubscription = this.socketService.on('newMessage').subscribe((data: any) => {
       console.log(data);
-      this.messages.push(data);
+      
+      if ((data.user1.id === this.userid && data.user2.id === this.currentChat) || 
+          (data.user1.id === this.currentChat && data.user2.id === this.userid)) {
+        this.messages.push(data);
+      }
     });
     this.subscriptions.add(socketSubscription);
     this.userid = parseInt(this.cookie.get('userId'));
@@ -70,7 +74,7 @@ export class ChatComponent {
     if (this.message.trim()) {
       this.socketService.emit('message', { message: this.message, roomId: this.currentChat });
       this.message = '';
-      this.getMessages(this.currentChat)
+      //this.getMessages(this.currentChat)
     }
     error: (error: any) => {
       console.log(error);
