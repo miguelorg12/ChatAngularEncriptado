@@ -18,25 +18,29 @@ export class ChatService {
 
   
 
-  getMessages(): Observable<Message[]> {
-    return this.http.get<Message[]>(`${environment.apiurl}/messages`, { headers: this.headers });
+  getMessage(userId:number): Observable<Message[]> {
+    return this.http.get<Message[]>(`${environment.apiurl}/messages/${userId}`, { headers: this.headers });
   }
 
   createMessage(message: CreateMessage): Observable<CreateMessage> {
     return this.http.post<CreateMessage>(`${environment.apiurl}/messages`, message, { headers: this.headers });
   }
 
-  getRooms(): Observable<Room[]> {
-    return this.http.get<Room[]>(`${environment.apiurl}/rooms`, { headers: this.headers });
+  lastMessage(userId:number): Observable<Message> {
+    return this.http.get<Message>(`${environment.apiurl}/messages/last/${userId}`, { headers: this.headers });
   }
 
-  getRoom(id: number): Observable<Room> {
-    return this.http.get<Room>(`${environment.apiurl}/rooms/${id}`, { headers: this.headers });
-  }
+  // getRooms(): Observable<Room[]> {
+  //   return this.http.get<Room[]>(${environment.apiurl}/rooms, { headers: this.headers });
+  // }
 
-  createRoom(room: Room): Observable<Room> {
-    return this.http.post<Room>(`${environment.apiurl}/rooms`, room, { headers: this.headers });
-  }
+  // getRoom(id: number): Observable<Room> {
+  //   return this.http.get<Room>(${environment.apiurl}/rooms/${id}, { headers: this.headers });
+  // }
+
+  // createRoom(room: Room): Observable<Room> {
+  //   return this.http.post<Room>(${environment.apiurl}/rooms, room, { headers: this.headers });
+  // }
 
 
 
